@@ -3,14 +3,22 @@
 import { useConversation } from '@11labs/react';
 import { useCallback } from 'react';
 
+// Define types for message and error
+interface ConversationMessage {
+  text: string; // Adjust based on the actual message structure
+}
+
+interface ConversationError {
+  message: string;
+}
+
 export function Conversation() {
   const conversation = useConversation({
     onConnect: () => console.log('Connected'),
     onDisconnect: () => console.log('Disconnected'),
-    onMessage: (message) => console.log('Message:', message),
-    onError: (error) => console.error('Error:', error),
+    onMessage: (message: ConversationMessage) => console.log('Message:', message),
+    onError: (error: ConversationError) => console.error('Error:', error),
   });
-
 
   const startConversation = useCallback(async () => {
     try {
@@ -19,7 +27,7 @@ export function Conversation() {
 
       // Start the conversation with your agent
       await conversation.startSession({
-        agentId: 'YOUR_AGENT_ID', // Replace with your agent ID
+        agentId: 'YOUR_AGENT_ID', // Replace with actual agent ID
       });
 
     } catch (error) {
