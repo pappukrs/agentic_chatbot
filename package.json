@@ -12,6 +12,7 @@
     "@11labs/react": "^0.0.6",
     "chatbot": "file:",
     "elevenlabs": "^1.50.4",
+    "lucide-react": "^0.474.0",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
