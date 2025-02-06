@@ -1,7 +1,8 @@
 'use client';
 
 import { useConversation } from '@11labs/react';
-import { useCallback } from 'react';
+import { useCallback, useState, useRef } from 'react';
+import AudioWave from './AudioWave'; // Import the AudioWave component
 
 // Define types for message and error
 interface ConversationMessage {
@@ -13,9 +14,32 @@ interface ConversationError {
 }
 
 export function Conversation() {
+  const [userStopped, setUserStopped] = useState(false);
+  const userStoppedRef = useRef(userStopped);
+
+  const updateUserStopped = (value: boolean) => {
+    setUserStopped(value);
+    userStoppedRef.current = value;
+  };
+
   const conversation = useConversation({
-    onConnect: () => console.log('Connected'),
-    onDisconnect: () => console.log('Disconnected'),
+    onConnect: () => {
+      console.log('Connected');
+      updateUserStopped(false); // Reset the flag on connect
+    },
+    onDisconnect: () => {
+      console.log('Disconnected');
+      if (!userStoppedRef.current) {
+        // Attempt to reconnect only if not user-initiated
+        console.log('User did not stop the conversation, preparing to attempt reconnection.');
+        setTimeout(() => {
+          console.log('Attempting to reconnect...');
+          conversation.startSession({
+            agentId: 'jhxU1jW1HoH1rcwfdzkP', // Replace with actual agent ID
+          }).catch(error => console.error('Reconnection failed:', error));
+        }, 5000); // Retry after 5 seconds
+      }
+    },
     onMessage: (message: ConversationMessage) => console.log('Message:', message),
     onError: (error: ConversationError) => console.error('Error:', error),
   });
@@ -27,7 +51,7 @@ export function Conversation() {
 
       // Start the conversation with your agent
       await conversation.startSession({
-        agentId: 'TqDSyHKFNoIqrk9gNeb8', // Replace with actual agent ID
+        agentId: 'jhxU1jW1HoH1rcwfdzkP', // Replace with actual agent ID
       });
 
     } catch (error) {
@@ -36,6 +60,8 @@ export function Conversation() {
   }, [conversation]);
 
   const stopConversation = useCallback(async () => {
+    console.log('User is stopping the conversation.');
+    updateUserStopped(true); // Set the flag when user stops the conversation
     await conversation.endSession();
   }, [conversation]);
 
@@ -61,6 +87,12 @@ export function Conversation() {
       <div className="flex flex-col items-center">
         <p>Status: {conversation.status}</p>
         <p>Agent is {conversation.isSpeaking ? 'speaking' : 'listening'}</p>
+        {conversation.isSpeaking && (
+          <AudioWave
+            isListening={conversation.isSpeaking} // Pass the speaking state
+            onSpeechResult={(text) => console.log('Speech Result:', text)} // Handle speech results
+          />
+        )}
       </div>
     </div>
   );
