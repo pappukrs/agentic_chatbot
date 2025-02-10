@@ -3,6 +3,7 @@
 import { useConversation } from '@11labs/react';
 import { useCallback, useState, useRef } from 'react';
 import AudioWave from './AudioWave'; // Import the AudioWave component
+import UserAudioWave from './UserAudioWave';
 
 // Define types for message and error
 interface ConversationMessage {
@@ -46,6 +47,8 @@ export function Conversation() {
     onMessage: (message: ConversationMessage) => console.log('Message:', message),
     onError: (error: ConversationError) => console.error('Error:', error),
   });
+
+  console.log("conversation",conversation)
 
   const startConversation = useCallback(async () => {
     try {
@@ -94,8 +97,13 @@ export function Conversation() {
         <p>Agent is {conversation.isSpeaking ? 'speaking' : 'listening'}</p>
         {conversation.isSpeaking && (
           <AudioWave
-            isListening={conversation.isSpeaking} // Pass the speaking state
-            onSpeechResult={(text) => console.log('Speech Result:', text)} // Handle speech results
+            isListening={conversation.isSpeaking}
+            onSpeechResult={(text) => console.log('Speech Result:', text)}
+          />
+        )}
+        {!conversation.isSpeaking  && (
+          <UserAudioWave
+            isUserSpeaking={!conversation.isSpeaking}
           />
         )}
       </div>
