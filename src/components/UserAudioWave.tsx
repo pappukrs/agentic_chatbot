@@ -59,14 +59,14 @@ const UserAudioWave: React.FC<UserAudioWaveProps> = ({ isUserSpeaking }) => {
       analyserRef.current.getByteFrequencyData(dataArray);
 
       const volume = dataArray.reduce((sum, value) => sum + value, 0) / dataArray.length;
-      const speedFactor = Math.min(Math.max(volume / 100, 0.5), 2); // Adjust speed based on volume
+      const speedFactor = Math.min(Math.max(volume /1, 500), 2); // Adjust speed based on volume
 
       console.log('Volume:', volume, 'Speed Factor:', speedFactor); // Debugging
 
       const ripples = [
-        { radius: 20, opacity: 1 },
-        { radius: 40, opacity: 0.6 },
-        { radius: 60, opacity: 0.3 },
+        { radius: 20 + volume / 1, opacity: 1 },
+        { radius: 40 + volume / 1, opacity: 0.6 },
+        { radius: 60 + volume / 1, opacity: 0.3 },
       ];
 
       ripples.forEach((ripple) => {
@@ -80,7 +80,7 @@ const UserAudioWave: React.FC<UserAudioWaveProps> = ({ isUserSpeaking }) => {
         ripple.opacity -= 0.01;
 
         if (ripple.opacity <= 0) {
-          ripple.radius = 20;
+          ripple.radius = 20 + volume / 10; // Reset radius based on volume
           ripple.opacity = 1;
         }
       });
@@ -117,8 +117,8 @@ const UserAudioWave: React.FC<UserAudioWaveProps> = ({ isUserSpeaking }) => {
       width={200}
       height={200}
       style={{
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         borderRadius: "50%",
         background: "rgba(0, 0, 0, 0.9)",
       }}
