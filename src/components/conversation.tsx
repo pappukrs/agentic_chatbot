@@ -34,9 +34,12 @@ export function Conversation() {
         console.log('User did not stop the conversation, preparing to attempt reconnection.');
         setTimeout(() => {
           console.log('Attempting to reconnect...');
-          conversation.startSession({
-            agentId: 'jhxU1jW1HoH1rcwfdzkP', // Replace with actual agent ID
-          }).catch(error => console.error('Reconnection failed:', error));
+
+          // conversation.startSession({
+          //   agentId: 'VKwf6Oe8o9xf8bFi93jV', 
+          // }).catch(error => console.error('Reconnection failed:', error));
+
+
         }, 5000); // Retry after 5 seconds
       }
     },
@@ -51,7 +54,7 @@ export function Conversation() {
 
       // Start the conversation with your agent
       await conversation.startSession({
-        agentId: 'jhxU1jW1HoH1rcwfdzkP', // Replace with actual agent ID
+        agentId: 'VKwf6Oe8o9xf8bFi93jV', // Replace with actual agent ID
       });
 
     } catch (error) {
