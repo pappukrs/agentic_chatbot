@@ -15,8 +15,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Munafa Technologies
+              <span
+                className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+                style={{ color: '#244F45' }}
+              >
+                Munafa Voice Assistant
               </span>
             </h1>
             
@@ -40,7 +43,7 @@ export default function Home() {
 
           {/* Text to Speech Section */}
           <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold mb-4">Wanted to know about Munafa</h2>
+            <h2 className="text-xl font-semibold mb-4">Wanted to know about Munafa?</h2>
             <TextToSpeechPlayer />
             
           </div>

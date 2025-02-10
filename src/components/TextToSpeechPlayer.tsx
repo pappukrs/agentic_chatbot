@@ -37,7 +37,7 @@ const TextToSpeechPlayer: React.FC = () => {
       setError(null);
 
       const audioStream = await client.textToSpeech.convertAsStream('JBFqnCBsd6RMkjVDRZzb', {
-        text: `Munafa Technologies leads in digital innovation and transformative solutions.`,
+        text: `Munafa Technology specializes in providing loans to farmers and SMEs, offering insurance services and neo-banking solutions.`,
         model_id: 'eleven_multilingual_v2',
       });
 
@@ -75,6 +75,7 @@ const TextToSpeechPlayer: React.FC = () => {
         style={{
           transition: 'background-color 0.3s ease-in-out, opacity 0.3s ease-in-out',
           opacity: isPlaying ? 1 : 0.8,
+          color: 'white',
         }}
       >
         {isLoading ? (
