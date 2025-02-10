@@ -74,14 +74,16 @@ export function Conversation() {
         <button
           onClick={startConversation}
           disabled={conversation.status === 'connected'}
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+          className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300 transition-colors duration-300 hover:bg-opacity-80"
+          style={{ background: '#244F45' }}
         >
           Start Conversation
         </button>
         <button
           onClick={stopConversation}
           disabled={conversation.status !== 'connected'}
-          className="px-4 py-2 bg-red-500 text-white rounded disabled:bg-gray-300"
+          className="px-4 py-2 bg-red-500 text-white rounded disabled:bg-gray-300 transition-colors duration-300 hover:bg-opacity-80"
+          style={{ background: '#244F45' }}
         >
           Stop Conversation
         </button>

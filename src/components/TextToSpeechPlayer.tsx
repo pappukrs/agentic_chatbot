@@ -69,7 +69,13 @@ const TextToSpeechPlayer: React.FC = () => {
       <button
         onClick={handlePlayPause}
         disabled={isLoading}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`px-6 py-3 text-white rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+          isPlaying ? 'bg-blue-700' : 'bg-[#244F45]'
+        }`}
+        style={{
+          transition: 'background-color 0.3s ease-in-out, opacity 0.3s ease-in-out',
+          opacity: isPlaying ? 1 : 0.8,
+        }}
       >
         {isLoading ? (
           <>
@@ -84,7 +90,7 @@ const TextToSpeechPlayer: React.FC = () => {
         ) : (
           <>
             <Play className="w-5 h-5" />
-            <span>Play Preview</span>
+            <span>play now</span>
           </>
         )}
       </button>
@@ -96,12 +102,12 @@ const TextToSpeechPlayer: React.FC = () => {
         </div>
       )}
 
-      <div className="text-sm text-gray-600 mt-2">
+      {/* <div className="text-sm text-gray-600 mt-2">
         <p>Current Text:</p>
         <p className="font-medium mt-1 bg-gray-50 p-3 rounded-lg">
           "Munafa Technologies leads in digital innovation and transformative solutions."
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };
