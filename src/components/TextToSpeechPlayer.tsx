@@ -70,7 +70,7 @@ const TextToSpeechPlayer: React.FC = () => {
         onClick={handlePlayPause}
         disabled={isLoading}
         className={`px-6 py-3 text-white rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed ${
-          isPlaying ? 'bg-blue-700' : 'bg-[#244F45]'
+          isPlaying ? 'bg-red-700' : 'bg-[#244F45]'
         }`}
         style={{
           transition: 'background-color 0.3s ease-in-out, opacity 0.3s ease-in-out',
