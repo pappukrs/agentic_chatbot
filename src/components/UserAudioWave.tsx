@@ -23,16 +23,20 @@ const UserAudioWave: React.FC<UserAudioWaveProps> = ({ isUserSpeaking }) => {
 
   const initAudio = async () => {
     try {
-      const audioContext = new AudioContext();
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaStreamRef.current = stream;
 
       const source = audioContext.createMediaStreamSource(stream);
       const analyser = audioContext.createAnalyser();
       analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.8;
+      analyser.minDecibels = -90;
+      analyser.maxDecibels = -10;
       source.connect(analyser);
       analyserRef.current = analyser;
 
+      console.log('Audio initialized successfully');
       startAnimation();
     } catch (error) {
       console.error('Error accessing microphone:', error);
@@ -56,6 +60,8 @@ const UserAudioWave: React.FC<UserAudioWaveProps> = ({ isUserSpeaking }) => {
 
       const volume = dataArray.reduce((sum, value) => sum + value, 0) / dataArray.length;
       const speedFactor = Math.min(Math.max(volume / 100, 0.5), 2); // Adjust speed based on volume
+
+      console.log('Volume:', volume, 'Speed Factor:', speedFactor); // Debugging
 
       const ripples = [
         { radius: 20, opacity: 1 },
