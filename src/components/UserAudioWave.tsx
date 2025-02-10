@@ -23,7 +23,7 @@ const UserAudioWave: React.FC<UserAudioWaveProps> = ({ isUserSpeaking }) => {
 
   const initAudio = async () => {
     try {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const audioContext = new ((window as any).AudioContext || (window as any).webkitAudioContext)();
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaStreamRef.current = stream;
 
