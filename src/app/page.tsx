@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Conversation } from '@/components/conversation';
 import TextToSpeechPlayer from '@/components/TextToSpeechPlayer';
-import Support from '@/components/Support';
 import { MessageCircle, ChevronRight, X } from 'lucide-react';
 
 export default function Home() {
